@@ -237,7 +237,7 @@ stream is confined to one zone and one channel, so throughput starts at about
 | F2FS on ZNS sequential write (MiB/s) | 64.8 | 60.2 | 61.1 |
 | F2FS on FTL sequential write (MiB/s) | 2133.3 | 638.4 | 607.0 |
 
-![Throughput vs. concurrency](results/throughput_vs_jobs.png)
+![Throughput vs. concurrency](/results/throughput_vs_jobs.png)
 
 ZoneFS exposes one file per zone and each fio job writes its own zone file.
 Increasing the job count therefore increases the number of active zones and
@@ -249,7 +249,7 @@ channels:
 | ZoneFS | 2 / 7 / 14 | 2 / 7 / 8 |
 | F2FS on ZNS | 2 / 2 / 2 | 2 / 2 / 2 |
 
-![Active zones](results/active_zones.png)
+![Active zones](/results/active_zones.png)
 
 F2FS does not scale on ZNS. Even with 32 concurrent fio jobs, the maximum number
 of host-visible active zones/channels stays at 2. F2FS is a log-structured file
@@ -262,7 +262,7 @@ difference.
 
 ### 5.3 Channel utilisation
 
-![Channel share at 8 jobs](results/channel_share_j8.png)
+![Channel share at 8 jobs](/results/channel_share_j8.png)
 
 At 8 jobs:
 

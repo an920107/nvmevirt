@@ -195,7 +195,7 @@ FTL 可以處理 random 4 KiB writes，而且只要一個 job 就已經使用全
 | F2FS on ZNS sequential write（MiB/s） | 64.8 | 60.2 | 61.1 |
 | F2FS on FTL sequential write（MiB/s） | 2133.3 | 638.4 | 607.0 |
 
-![Throughput vs. concurrency](results/throughput_vs_jobs.png)
+![Throughput vs. concurrency](/results/throughput_vs_jobs.png)
 
 ZoneFS 將每個 zone 暴露成一個檔案，每個 fio job 寫入自己的 zone file。因此增加 job 數量會增加 active zones 與 channels 的數量：
 
@@ -205,13 +205,13 @@ ZoneFS 將每個 zone 暴露成一個檔案，每個 fio job 寫入自己的 zon
 | ZoneFS | 2 / 7 / 14 | 2 / 7 / 8 |
 | F2FS on ZNS | 2 / 2 / 2 | 2 / 2 / 2 |
 
-![Active zones](results/active_zones.png)
+![Active zones](/results/active_zones.png)
 
 F2FS 在 ZNS 上沒有 scaling。即使有 32 個並行 fio jobs，主機可見的 active zones/channels 最大值仍然只有 2。F2FS 是 log-structured 檔案系統：它透過 active logs 寫入，並以大致循序的方式配置 sections/zones。因此即使多個使用者 thread 同時發出 I/O，檔案系統仍然把實際的 zone 寫入序列化。由於 F2FS 會隨時間輪替 zones/channels，時間平均下來的 per-channel byte 分佈仍然相當平均；真正關鍵的差異是缺少「同時」使用多個 channels。
 
 ### 5.3 Channel 使用率
 
-![Channel share at 8 jobs](results/channel_share_j8.png)
+![Channel share at 8 jobs](/results/channel_share_j8.png)
 
 在 8 jobs 時：
 
