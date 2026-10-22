@@ -1,0 +1,31 @@
+=== ftl-seqw-j1 ===
+results/ftl-seqw-j1.json: bw=1251.8 MiB/s iops=10015 lat_us=3191.4
+=== ftl-seqw-j8 ===
+results/ftl-seqw-j8.json: bw=1085.6 MiB/s iops=8685 lat_us=26960.3
+=== ftl-randw-j1 ===
+results/ftl-randw-j1.json: bw=569.5 MiB/s iops=145798 lat_us=218.8
+=== zns-seqw-j1 ===
+results/zns-seqw-j1.json: bw=21.9 MiB/s iops=175 lat_us=5707.2
+=== zns-seqw-j8 ===
+results/zns-seqw-j8.json: bw=151.1 MiB/s iops=1209 lat_us=4552.9
+=== zns-seqw-j32 ===
+results/zns-seqw-j32.json: bw=449.1 MiB/s iops=3593 lat_us=7307.6
+=== zonefs-w-j1 ===
+results/zonefs-w-j1.json: bw=62.0 MiB/s iops=496 lat_us=2012.2
+=== zonefs-w-j8 ===
+results/zonefs-w-j8.json: bw=234.4 MiB/s iops=1875 lat_us=3735.6
+=== zonefs-w-j32 ===
+results/zonefs-w-j32.json: bw=543.5 MiB/s iops=4348 lat_us=5727.9
+=== f2fs-zns-w-j1 ===
+results/f2fs-zns-w-j1.json: bw=64.8 MiB/s iops=519 lat_us=1926.5
+=== f2fs-zns-w-j8 ===
+results/f2fs-zns-w-j8.json: bw=60.2 MiB/s iops=482 lat_us=16592.8
+=== f2fs-zns-w-j32 ===
+results/f2fs-zns-w-j32.json: bw=61.1 MiB/s iops=489 lat_us=65162.5
+=== f2fs-ftl-w-j1 ===
+results/f2fs-ftl-w-j1.json: bw=2133.3 MiB/s iops=17067 lat_us=58.0
+=== f2fs-ftl-w-j8 ===
+results/f2fs-ftl-w-j8.json: bw=638.4 MiB/s iops=5107 lat_us=1506.9
+=== f2fs-ftl-w-j32 ===
+results/f2fs-ftl-w-j32.json: bw=607.0 MiB/s iops=4856 lat_us=5883.1
+all done

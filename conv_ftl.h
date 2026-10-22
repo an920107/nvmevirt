@@ -75,4 +75,9 @@ void conv_remove_namespace(struct nvmev_ns *ns);
 bool conv_proc_nvme_io_cmd(struct nvmev_ns *ns, struct nvmev_request *req,
 			   struct nvmev_result *ret);
 
+/* channel statistics used by the lab's /proc/nvmev/parallel */
+struct seq_file;
+void conv_stats_dump(struct nvmev_ns *ns, struct seq_file *m);
+void conv_stats_reset(struct nvmev_ns *ns);
+
 #endif

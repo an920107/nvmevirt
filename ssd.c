@@ -267,6 +267,21 @@ static void ssd_init_ch(struct ssd_channel *ch, struct ssdparams *spp)
 
 	/* Add firmware overhead */
 	ch->perf_model->xfer_lat += (spp->fw_ch_xfer_lat * UNIT_XFER_SIZE / KB(4));
+
+	atomic64_set(&ch->stat_ops, 0);
+	atomic64_set(&ch->stat_bytes, 0);
+	atomic64_set(&ch->stat_busy_ns, 0);
+}
+
+static inline void __account_channel_xfer(struct ssd_channel *ch, uint64_t bytes)
+{
+	if (!bytes)
+		return;
+
+	atomic64_inc(&ch->stat_ops);
+	atomic64_add(bytes, &ch->stat_bytes);
+	atomic64_add(DIV_ROUND_UP(bytes, UNIT_XFER_SIZE) * ch->perf_model->xfer_lat,
+		     &ch->stat_busy_ns);
 }
 
 static void ssd_remove_ch(struct ssd_channel *ch)
@@ -403,6 +418,7 @@ uint64_t ssd_advance_nand(struct ssd *ssd, struct nand_cmd *ncmd)
 		while (remaining) {
 			xfer_size = min(remaining, (uint64_t)spp->max_ch_xfer_size);
 			chnl_etime = chmodel_request(ch->perf_model, chnl_stime, xfer_size);
+			__account_channel_xfer(ch, xfer_size);
 
 			if (ncmd->interleave_pci_dma) { /* overlap pci transfer with nand ch transfer*/
 				completed_time = ssd_advance_pcie(ssd, chnl_etime, xfer_size);
@@ -422,6 +438,7 @@ uint64_t ssd_advance_nand(struct ssd *ssd, struct nand_cmd *ncmd)
 		chnl_stime = max(lun->next_lun_avail_time, cmd_stime);
 
 		chnl_etime = chmodel_request(ch->perf_model, chnl_stime, ncmd->xfer_size);
+		__account_channel_xfer(ch, ncmd->xfer_size);
 
 		/* write: then do NAND program */
 		nand_stime = chnl_etime;

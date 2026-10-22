@@ -1,0 +1,17 @@
+conv_chan: part=0 ch=0 gch=0 nand_ops=14174 nand_bytes=663678976 busy_ns=850338688
+conv_chan: part=0 ch=1 gch=1 nand_ops=14155 nand_bytes=663035904 busy_ns=849514752
+conv_chan: part=1 ch=0 gch=2 nand_ops=14837 nand_bytes=661737472 busy_ns=847851136
+conv_chan: part=1 ch=1 gch=3 nand_ops=14852 nand_bytes=661196800 busy_ns=847158400
+conv_chan: part=2 ch=0 gch=4 nand_ops=19173 nand_bytes=844832768 busy_ns=1082441984
+conv_chan: part=2 ch=1 gch=5 nand_ops=19208 nand_bytes=844935168 busy_ns=1082573184
+conv_chan: part=3 ch=0 gch=6 nand_ops=14417 nand_bytes=643248128 busy_ns=824161664
+conv_chan: part=3 ch=1 gch=7 nand_ops=14432 nand_bytes=642830336 busy_ns=823626368
+zns: zones=512 channels=8 total_ios=0 total_bytes=0 active_zones=0 max_active_zones=0 active_channels=0 max_active_channels=0
+zns_chan: ch=0 host_ios=0 host_bytes=0 nand_ops=0 nand_bytes=0 busy_ns=0 out=0
+zns_chan: ch=1 host_ios=0 host_bytes=0 nand_ops=0 nand_bytes=0 busy_ns=0 out=0
+zns_chan: ch=2 host_ios=0 host_bytes=0 nand_ops=0 nand_bytes=0 busy_ns=0 out=0
+zns_chan: ch=3 host_ios=0 host_bytes=0 nand_ops=0 nand_bytes=0 busy_ns=0 out=0
+zns_chan: ch=4 host_ios=0 host_bytes=0 nand_ops=0 nand_bytes=0 busy_ns=0 out=0
+zns_chan: ch=5 host_ios=0 host_bytes=0 nand_ops=0 nand_bytes=0 busy_ns=0 out=0
+zns_chan: ch=6 host_ios=0 host_bytes=0 nand_ops=0 nand_bytes=0 busy_ns=0 out=0
+zns_chan: ch=7 host_ios=0 host_bytes=0 nand_ops=0 nand_bytes=0 busy_ns=0 out=0

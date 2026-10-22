@@ -93,7 +93,8 @@ static void __fill_zone_report(struct zns_ftl *zns_ftl, struct nvme_zone_mgmt_re
 
 	report->nr_zones = nr_zone_to_report;
 
-	memcpy(report->zd, &(zone_descs[start_zid]),
+	memcpy((u8 *)report + offsetof(struct zone_report, zd),
+	       &(zone_descs[start_zid]),
 	       sizeof(struct zone_descriptor) * nr_zone_to_report);
 }
 

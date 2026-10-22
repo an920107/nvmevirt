@@ -1,0 +1,263 @@
+== date ==
+Thu Oct 22 07:15:06 PM CST 2026
+== cmdline ==
+BOOT_IMAGE=/boot/vmlinuz-6.12.113+deb13-amd64 root=UUID=58183cad-fef6-4ef1-82be-d587c585606c ro memmap=16385M$6G isolcpus=2,3,4,5 iommu=off intremap=off quiet
+== lsblk ==
+NAME     SIZE ZONED        MODEL
+sr0     1024M none         QEMU DVD-ROM
+vda       30G none         
+├─vda1   976M none         
+├─vda2  27.5G none         
+└─vda3   1.6G none         
+nvme0n1  7.5G none         CSL_Virt_MN_01
+nvme0n2    8G host-managed CSL_Virt_MN_01
+== nvme list ==
+Node                  Generic               SN                   Model                                    Namespace  Usage                      Format           FW Rev  
+--------------------- --------------------- -------------------- ---------------------------------------- ---------- -------------------------- ---------------- --------
+/dev/nvme0n1          /dev/ng0n1            CSL_Virt_SN_01       CSL_Virt_MN_01                           0x1          8.03  GB /   8.03  GB    512   B +  0 B   CSL_002 
+/dev/nvme0n2          /dev/ng0n2            CSL_Virt_SN_01       CSL_Virt_MN_01                           0x2          8.59  GB /   8.59  GB    512   B +  0 B   CSL_002 
+== id-ctrl ==
+NVME Identify Controller:
+vid       : 0
+ssvid     : 0
+sn        : CSL_Virt_SN_01
+mn        : CSL_Virt_MN_01
+fr        : CSL_002
+rab       : 0
+ieee      : 000000
+cmic      : 0
+mdts      : 6
+cntlid    : 0
+ver       : 0
+rtd3r     : 0
+rtd3e     : 0
+oaes      : 0
+ctratt    : 0
+rrls      : 0
+bpcap     : 0
+nssl      : 0
+plsi      : 0
+cntrltype : 0
+fguid     : 00000000-0000-0000-0000-000000000000
+crdt1     : 0
+crdt2     : 0
+crdt3     : 0
+crcap     : 0
+nvmsr     : 0
+vwci      : 0
+mec       : 0
+oacs      : 0
+acl       : 3
+aerl      : 0
+frmw      : 0
+lpa       : 0
+elpe      : 0
+npss      : 0
+avscc     : 0
+apsta     : 0
+wctemp    : 0
+cctemp    : 0
+mtfa      : 0
+hmpre     : 0
+hmmin     : 0
+tnvmcap   : 0
+unvmcap   : 0
+rpmbs     : 0
+edstt     : 0
+dsto      : 0
+fwug      : 0
+kas       : 0
+hctma     : 0
+mntmt     : 0
+mxtmt     : 0
+sanicap   : 0
+hmminds   : 0
+hmmaxd    : 0
+nsetidmax : 0
+endgidmax : 0
+anatt     : 0
+anacap    : 0
+anagrpmax : 0
+nanagrpid : 0
+pels      : 0
+domainid  : 0
+kpioc     : 0
+mptfawr   : 0
+megcap    : 0
+tmpthha   : 0
+cqt       : 0
+sqes      : 0x66
+cqes      : 0x44
+maxcmd    : 0
+nn        : 2
+oncs      : 0
+fuses     : 0
+fna       : 0
+vwc       : 0
+awun      : 0
+awupf     : 0
+icsvscc   : 0
+nwpc      : 0
+acwu      : 0
+ocfs      : 0
+sgls      : 0
+mnan      : 0
+maxdna    : 0
+maxcna    : 0
+oaqd      : 0
+rhiri     : 0
+hirt      : 0
+cmmrtd    : 0
+nmmrtd    : 0
+minmrtg   : 0
+maxmrtg   : 0
+trattr    : 0
+mcudmq    : 0
+mnsudmq   : 0
+mcmr      : 0
+nmcmr     : 0
+mcdqpc    : 0
+subnqn    : 
+ioccsz    : 0
+iorcsz    : 0
+icdoff    : 0
+fcatt     : 0
+msdbd     : 0
+ofcs      : 0
+ps      0 : mp:0.00W operational enlat:0 exlat:0 rrt:0 rrl:0
+            rwt:0 rwl:0 idle_power:- active_power:-
+            active_power_workload:-
+            emergency power fail recovery time: -
+            forced quiescence vault time: -
+            emergency power fail vault time: -
+== id-ns n1 ==
+NVME Identify Namespace 1:
+nsze    : 0xef4099
+ncap    : 0xef4099
+nuse    : 0xef4099
+nsfeat  : 0
+nlbaf   : 6
+flbas   : 0
+mc      : 0
+dpc     : 0
+dps     : 0
+nmic    : 0
+rescap  : 0
+fpi     : 0
+dlfeat  : 0
+nawun   : 0
+nawupf  : 0
+nacwu   : 0
+nabsn   : 0
+nabo    : 0
+nabspf  : 0
+noiob   : 0
+nvmcap  : 0
+mssrl   : 0
+mcl     : 0
+msrc    : 0
+kpios   : 0
+nulbaf  : 0
+kpiodaag: 0
+anagrpid: 0
+nsattr	: 0
+nvmsetid: 0
+endgid  : 0
+nguid   : 00000000000000000000000000000000
+eui64   : 0000000000000000
+lbaf  0 : ms:0   lbads:9  rp:0x2 (in use)
+lbaf  1 : ms:8   lbads:9  rp:0x2 
+lbaf  2 : ms:16  lbads:9  rp:0x2 
+lbaf  3 : ms:0   lbads:12 rp:0 
+lbaf  4 : ms:8   lbads:12 rp:0 
+lbaf  5 : ms:64  lbads:12 rp:0 
+lbaf  6 : ms:128 lbads:12 rp:0 
+== id-ns n2 ==
+NVME Identify Namespace 2:
+nsze    : 0x1000000
+ncap    : 0x1000000
+nuse    : 0x1000000
+nsfeat  : 0
+nlbaf   : 6
+flbas   : 0
+mc      : 0
+dpc     : 0
+dps     : 0
+nmic    : 0
+rescap  : 0
+fpi     : 0
+dlfeat  : 0
+nawun   : 0
+nawupf  : 0
+nacwu   : 0
+nabsn   : 0
+nabo    : 0
+nabspf  : 0
+noiob   : 0
+nvmcap  : 0
+mssrl   : 0
+mcl     : 0
+msrc    : 0
+kpios   : 0
+nulbaf  : 0
+kpiodaag: 0
+anagrpid: 0
+nsattr	: 0
+nvmsetid: 0
+endgid  : 0
+nguid   : 00000000000000000000000000000000
+eui64   : 0000000000000000
+lbaf  0 : ms:0   lbads:9  rp:0x2 (in use)
+lbaf  1 : ms:8   lbads:9  rp:0x2 
+lbaf  2 : ms:16  lbads:9  rp:0x2 
+lbaf  3 : ms:0   lbads:12 rp:0 
+lbaf  4 : ms:8   lbads:12 rp:0 
+lbaf  5 : ms:64  lbads:12 rp:0 
+lbaf  6 : ms:128 lbads:12 rp:0 
+== zns id-ns n2 ==
+ZNS Command Set Identify Namespace:
+zoc     : 0
+ozcs    : 0
+mar     : 0x1ff
+mor     : 0x1ff
+rrl     : 0
+frl     : 0
+rrl1    : 0
+rrl2    : 0
+rrl3    : 0
+frl1    : 0
+frl2    : 0
+frl3    : 0
+numzrwa : 0
+zrwafg  : 0
+zrwasz  : 0
+zrwacap : 0
+lbafe  0: zsze:0x8000 zdes:0 (in use)
+lbafe  1: zsze:0 zdes:0
+lbafe  2: zsze:0 zdes:0
+lbafe  3: zsze:0 zdes:0
+lbafe  4: zsze:0 zdes:0
+lbafe  5: zsze:0 zdes:0
+lbafe  6: zsze:0 zdes:0
+== zns id-ctrl ==
+NVMe ZNS Identify Controller:
+zasl    : 0
+== report-zones head ==
+nr_zones: 512
+SLBA: 0          WP: 0          Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x8000     WP: 0x8000     Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x10000    WP: 0x10000    Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x18000    WP: 0x18000    Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x20000    WP: 0x20000    Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x28000    WP: 0x28000    Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x30000    WP: 0x30000    Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x38000    WP: 0x38000    Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x40000    WP: 0x40000    Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x48000    WP: 0x48000    Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+SLBA: 0x50000    WP: 0x50000    Cap: 0x8000     State: 0x10 Type: 0x2  Attrs: 0    AttrsInfo: 0   
+== blkzone report head ==
+  start: 0x000000000, len 0x008000, cap 0x008000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000008000, len 0x008000, cap 0x008000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000010000, len 0x008000, cap 0x008000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000018000, len 0x008000, cap 0x008000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]
+  start: 0x000020000, len 0x008000, cap 0x008000, wptr 0x000000 reset:0 non-seq:0, zcond: 1(em) [type: 2(SEQ_WRITE_REQUIRED)]

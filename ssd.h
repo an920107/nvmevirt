@@ -4,6 +4,7 @@
 #define _NVMEVIRT_SSD_H
 
 #include <linux/types.h>
+#include <linux/atomic.h>
 #include "pqueue/pqueue.h"
 #include "ssd_config.h"
 #include "channel_model.h"
@@ -116,6 +117,11 @@ struct ssd_channel {
 	int nluns;
 	uint64_t gc_endtime;
 	struct channel_model *perf_model;
+
+	/* cumulative NAND channel statistics for the lab */
+	atomic64_t stat_ops;
+	atomic64_t stat_bytes;
+	atomic64_t stat_busy_ns;
 };
 
 struct ssd_pcie {

@@ -1,0 +1,17 @@
+[  471.067514] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=2 | ac cur=0 avg=0 max=2 | ios=153 bytes=26730496
+[  472.071512] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=292 bytes=64094208
+[  473.075516] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=267 bytes=64094208
+[  474.079513] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=273 bytes=63832064
+[  475.083514] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=276 bytes=63963136
+[  476.087513] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=274 bytes=64094208
+[  477.091514] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=268 bytes=63963136
+[  478.095514] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=280 bytes=63569920
+[  479.099513] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=281 bytes=63598592
+[  480.103514] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=272 bytes=63934464
+[  481.107511] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=288 bytes=63963136
+[  482.111514] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=279 bytes=63438848
+[  483.115512] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=277 bytes=63963136
+[  484.119513] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=269 bytes=63963136
+[  485.123512] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=276 bytes=64618496
+[  486.127510] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=260 bytes=63700992
+[  487.131510] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=265 bytes=63307776

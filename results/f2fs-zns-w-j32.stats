@@ -1,0 +1,81 @@
+conv_chan: part=0 ch=0 gch=0 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=0 ch=1 gch=1 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=1 ch=0 gch=2 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=1 ch=1 gch=3 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=2 ch=0 gch=4 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=2 ch=1 gch=5 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=3 ch=0 gch=6 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=3 ch=1 gch=7 nand_ops=0 nand_bytes=0 busy_ns=0
+zns: zones=512 channels=8 total_ios=4787 total_bytes=1057603584 active_zones=0 max_active_zones=2 active_channels=0 max_active_channels=2
+zns_chan: ch=0 host_ios=134606848 host_bytes=134606848 nand_ops=2073 nand_bytes=134606848 busy_ns=172465024 out=0
+zns_chan: ch=1 host_ios=134221824 host_bytes=134221824 nand_ops=2049 nand_bytes=134221824 busy_ns=171971712 out=0
+zns_chan: ch=2 host_ios=134217728 host_bytes=134217728 nand_ops=2048 nand_bytes=134217728 busy_ns=171966464 out=0
+zns_chan: ch=3 host_ios=134217728 host_bytes=134217728 nand_ops=2048 nand_bytes=134217728 busy_ns=171966464 out=0
+zns_chan: ch=4 host_ios=134217728 host_bytes=134217728 nand_ops=2048 nand_bytes=134217728 busy_ns=171966464 out=0
+zns_chan: ch=5 host_ios=134217728 host_bytes=134217728 nand_ops=2048 nand_bytes=134217728 busy_ns=171966464 out=0
+zns_chan: ch=6 host_ios=134217728 host_bytes=134217728 nand_ops=2048 nand_bytes=134217728 busy_ns=171966464 out=0
+zns_chan: ch=7 host_ios=117686272 host_bytes=117686272 nand_ops=1814 nand_bytes=117686272 busy_ns=150785536 out=0
+zns_zone: zid=0 ios=102 bytes=17166336 out=0
+zns_zone: zid=1 ios=76 bytes=16781312 out=0
+zns_zone: zid=2 ios=70 bytes=16777216 out=0
+zns_zone: zid=3 ios=75 bytes=16777216 out=0
+zns_zone: zid=4 ios=75 bytes=16777216 out=0
+zns_zone: zid=5 ios=73 bytes=16777216 out=0
+zns_zone: zid=6 ios=78 bytes=16777216 out=0
+zns_zone: zid=7 ios=73 bytes=16777216 out=0
+zns_zone: zid=8 ios=75 bytes=16777216 out=0
+zns_zone: zid=9 ios=75 bytes=16777216 out=0
+zns_zone: zid=10 ios=74 bytes=16777216 out=0
+zns_zone: zid=11 ios=73 bytes=16777216 out=0
+zns_zone: zid=12 ios=76 bytes=16777216 out=0
+zns_zone: zid=13 ios=76 bytes=16777216 out=0
+zns_zone: zid=14 ios=73 bytes=16777216 out=0
+zns_zone: zid=15 ios=73 bytes=16777216 out=0
+zns_zone: zid=16 ios=76 bytes=16777216 out=0
+zns_zone: zid=17 ios=76 bytes=16777216 out=0
+zns_zone: zid=18 ios=77 bytes=16777216 out=0
+zns_zone: zid=19 ios=75 bytes=16777216 out=0
+zns_zone: zid=20 ios=76 bytes=16777216 out=0
+zns_zone: zid=21 ios=74 bytes=16777216 out=0
+zns_zone: zid=22 ios=77 bytes=16777216 out=0
+zns_zone: zid=23 ios=73 bytes=16777216 out=0
+zns_zone: zid=24 ios=74 bytes=16777216 out=0
+zns_zone: zid=25 ios=77 bytes=16777216 out=0
+zns_zone: zid=26 ios=76 bytes=16777216 out=0
+zns_zone: zid=27 ios=75 bytes=16777216 out=0
+zns_zone: zid=28 ios=76 bytes=16777216 out=0
+zns_zone: zid=29 ios=76 bytes=16777216 out=0
+zns_zone: zid=30 ios=75 bytes=16777216 out=0
+zns_zone: zid=31 ios=76 bytes=16777216 out=0
+zns_zone: zid=32 ios=74 bytes=16777216 out=0
+zns_zone: zid=33 ios=74 bytes=16777216 out=0
+zns_zone: zid=34 ios=76 bytes=16777216 out=0
+zns_zone: zid=35 ios=75 bytes=16777216 out=0
+zns_zone: zid=36 ios=79 bytes=16777216 out=0
+zns_zone: zid=37 ios=74 bytes=16777216 out=0
+zns_zone: zid=38 ios=74 bytes=16777216 out=0
+zns_zone: zid=39 ios=77 bytes=16777216 out=0
+zns_zone: zid=40 ios=74 bytes=16777216 out=0
+zns_zone: zid=41 ios=78 bytes=16777216 out=0
+zns_zone: zid=42 ios=73 bytes=16777216 out=0
+zns_zone: zid=43 ios=78 bytes=16777216 out=0
+zns_zone: zid=44 ios=77 bytes=16777216 out=0
+zns_zone: zid=45 ios=77 bytes=16777216 out=0
+zns_zone: zid=46 ios=77 bytes=16777216 out=0
+zns_zone: zid=47 ios=73 bytes=16777216 out=0
+zns_zone: zid=48 ios=74 bytes=16777216 out=0
+zns_zone: zid=49 ios=76 bytes=16777216 out=0
+zns_zone: zid=50 ios=80 bytes=16777216 out=0
+zns_zone: zid=51 ios=74 bytes=16777216 out=0
+zns_zone: zid=52 ios=77 bytes=16777216 out=0
+zns_zone: zid=53 ios=73 bytes=16777216 out=0
+zns_zone: zid=54 ios=74 bytes=16777216 out=0
+zns_zone: zid=55 ios=74 bytes=16777216 out=0
+zns_zone: zid=56 ios=79 bytes=16777216 out=0
+zns_zone: zid=57 ios=75 bytes=16777216 out=0
+zns_zone: zid=58 ios=77 bytes=16777216 out=0
+zns_zone: zid=59 ios=77 bytes=16777216 out=0
+zns_zone: zid=60 ios=74 bytes=16777216 out=0
+zns_zone: zid=61 ios=77 bytes=16777216 out=0
+zns_zone: zid=62 ios=74 bytes=16777216 out=0
+zns_zone: zid=511 ios=16 bytes=245760 out=0

@@ -259,6 +259,7 @@ struct nvmev_dev {
 	struct proc_dir_entry *proc_io_units;
 	struct proc_dir_entry *proc_stat;
 	struct proc_dir_entry *proc_debug;
+	struct proc_dir_entry *proc_parallel;
 
 	unsigned long long *io_unit_stat;
 };
@@ -287,6 +288,9 @@ struct nvmev_ns {
 	/*io command handler*/
 	bool (*proc_io_cmd)(struct nvmev_ns *ns, struct nvmev_request *req,
 			    struct nvmev_result *ret);
+
+	/*optional host-visible completion handler (used by parallelism stats)*/
+	void (*complete_io_cmd)(struct nvmev_ns *ns, struct nvme_command *cmd);
 
 	/*specific CSS io command identifier*/
 	bool (*identify_io_cmd)(struct nvmev_ns *ns, struct nvme_command cmd);

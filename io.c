@@ -59,6 +59,16 @@ static unsigned int __do_perform_io(int sqid, int sq_entry)
 	size_t nsid = cmd->nsid - 1; // 0-based
 	bool is_paddr_memremap = false;
 
+	switch (cmd->opcode) {
+	case nvme_cmd_read:
+	case nvme_cmd_write:
+	case nvme_cmd_zone_append:
+		break;
+	default:
+		/* Zone-management commands move their payload in their own handler. */
+		return 0;
+	}
+
 	offset = __cmd_io_offset(cmd);
 	length = __cmd_io_size(cmd);
 	remaining = length;
@@ -571,8 +581,20 @@ static void __fill_cq_result(struct nvmev_io_work *w)
 	unsigned int result1 = w->result1;
 
 	struct nvmev_completion_queue *cq = nvmev_vdev->cqes[cqid];
+	struct nvmev_submission_queue *sq = nvmev_vdev->sqes[sqid];
 	struct nvme_completion *cqe;
+	struct nvmev_ns *ns;
 	int cq_head;
+
+	if (sq && status == NVME_SC_SUCCESS) {
+		u32 nsid = sq_entry(sq_entry).common.nsid;
+
+		if (nsid >= 1 && nsid <= nvmev_vdev->nr_ns) {
+			ns = &nvmev_vdev->ns[nsid - 1];
+			if (ns->complete_io_cmd)
+				ns->complete_io_cmd(ns, &sq_entry(sq_entry));
+		}
+	}
 
 	spin_lock(&cq->entry_lock);
 	cq_head = cq->cq_head;

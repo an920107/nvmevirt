@@ -72,8 +72,11 @@ static unsigned int io_unit_shift = 12;
 
 static char *cpus;
 static unsigned int debug = 0;
+unsigned int stats_interval_ms = 1000;
 
 int io_using_dma = false;
+
+static void nvmev_stats_tick(void);
 
 static int set_parse_mem_param(const char *val, const struct kernel_param *kp)
 {
@@ -110,6 +113,9 @@ MODULE_PARM_DESC(io_unit_shift, "Size of each I/O unit (2^)");
 module_param(cpus, charp, 0444);
 MODULE_PARM_DESC(cpus, "CPU list for process, completion(int.) threads, Seperated by Comma(,)");
 module_param(debug, uint, 0644);
+module_param(stats_interval_ms, uint, 0644);
+MODULE_PARM_DESC(stats_interval_ms,
+		 "Parallelism statistics interval in milliseconds (0 disables)");
 
 // Returns true if an event is processed
 static bool nvmev_proc_dbs(void)
@@ -177,6 +183,8 @@ static int nvmev_dispatcher(void *data)
 			last_dispatched_time = jiffies;
 		if (nvmev_proc_dbs())
 			last_dispatched_time = jiffies;
+
+		nvmev_stats_tick();
 
 		if (CONFIG_NVMEVIRT_IDLE_TIMEOUT != 0 &&
 		    time_after(jiffies, last_dispatched_time + (CONFIG_NVMEVIRT_IDLE_TIMEOUT * HZ)))
@@ -293,6 +301,55 @@ static void __print_perf_configs(void)
 #endif
 }
 
+static void nvmev_stats_tick(void)
+{
+#if (BASE_SSD == LAB_MIXED)
+	int i;
+
+	if (!stats_interval_ms || !nvmev_vdev->ns)
+		return;
+
+	for (i = 0; i < nvmev_vdev->nr_ns; i++) {
+		struct nvmev_ns *ns = &nvmev_vdev->ns[i];
+
+		if (ns->csi == NVME_CSI_ZNS)
+			zns_stats_tick(ns);
+	}
+#endif
+}
+
+static void nvmev_dump_parallel(struct seq_file *m)
+{
+#if (BASE_SSD == LAB_MIXED)
+	int i;
+
+	for (i = 0; i < nvmev_vdev->nr_ns; i++) {
+		struct nvmev_ns *ns = &nvmev_vdev->ns[i];
+
+		if (ns->csi == NVME_CSI_ZNS)
+			zns_stats_dump(ns, m);
+		else
+			conv_stats_dump(ns, m);
+	}
+#endif
+}
+
+static void nvmev_reset_parallel(void)
+{
+#if (BASE_SSD == LAB_MIXED)
+	int i;
+
+	for (i = 0; i < nvmev_vdev->nr_ns; i++) {
+		struct nvmev_ns *ns = &nvmev_vdev->ns[i];
+
+		if (ns->csi == NVME_CSI_ZNS)
+			zns_stats_reset(ns);
+		else
+			conv_stats_reset(ns);
+	}
+#endif
+}
+
 static int __get_nr_entries(int dbs_idx, int queue_size)
 {
 	int diff = nvmev_vdev->dbs[dbs_idx] - nvmev_vdev->old_dbs[dbs_idx];
@@ -341,6 +398,8 @@ static int __proc_file_read(struct seq_file *m, void *data)
 		}
 		seq_printf(m, "total: %u %u %u %llu\n", nr_in_flight, nr_dispatch, nr_dispatched,
 			   total_io);
+	} else if (strcmp(filename, "parallel") == 0) {
+		nvmev_dump_parallel(m);
 	} else if (strcmp(filename, "debug") == 0) {
 		/* Left for later use */
 	}
@@ -391,6 +450,8 @@ static ssize_t __proc_file_write(struct file *file, const char __user *buf, size
 
 			memset(&sq->stat, 0x00, sizeof(sq->stat));
 		}
+	} else if (!strcmp(filename, "parallel")) {
+		nvmev_reset_parallel();
 	} else if (!strcmp(filename, "debug")) {
 		/* Left for later use */
 	}
@@ -449,6 +510,8 @@ static void NVMEV_STORAGE_INIT(struct nvmev_dev *nvmev_vdev)
 		proc_create("io_units", 0664, nvmev_vdev->proc_root, &proc_file_fops);
 	nvmev_vdev->proc_stat = proc_create("stat", 0444, nvmev_vdev->proc_root, &proc_file_fops);
 	nvmev_vdev->proc_debug = proc_create("debug", 0444, nvmev_vdev->proc_root, &proc_file_fops);
+	nvmev_vdev->proc_parallel =
+		proc_create("parallel", 0664, nvmev_vdev->proc_root, &proc_file_fops);
 }
 
 static void NVMEV_STORAGE_FINAL(struct nvmev_dev *nvmev_vdev)
@@ -458,6 +521,7 @@ static void NVMEV_STORAGE_FINAL(struct nvmev_dev *nvmev_vdev)
 	remove_proc_entry("io_units", nvmev_vdev->proc_root);
 	remove_proc_entry("stat", nvmev_vdev->proc_root);
 	remove_proc_entry("debug", nvmev_vdev->proc_root);
+	remove_proc_entry("parallel", nvmev_vdev->proc_root);
 
 	remove_proc_entry("nvmev", NULL);
 
@@ -523,14 +587,32 @@ static void NVMEV_NAMESPACE_INIT(struct nvmev_dev *nvmev_vdev)
 	int i;
 	unsigned long long size;
 
-	struct nvmev_ns *ns = kmalloc(sizeof(struct nvmev_ns) * nr_ns, GFP_KERNEL);
+	struct nvmev_ns *ns = kzalloc(sizeof(struct nvmev_ns) * nr_ns, GFP_KERNEL);
 
 	for (i = 0; i < nr_ns; i++) {
 		if (NS_CAPACITY(i) == 0)
-			size = remaining_capacity;
+			size = remaining_capacity / (nr_ns - i);
 		else
 			size = min(NS_CAPACITY(i), remaining_capacity);
 
+#ifdef ZONE_SIZE
+		if (NS_SSD_TYPE(i) == SSD_TYPE_ZNS)
+			size = round_down(size, (unsigned long long)ZONE_SIZE);
+#endif
+		if (size == 0) {
+			NVMEV_ERROR("Not enough storage for namespace %d\n", i);
+			kfree(ns);
+			return;
+		}
+
+#if (BASE_SSD == LAB_MIXED)
+		if (NS_SSD_TYPE(i) == SSD_TYPE_CONV)
+			conv_init_namespace(&ns[i], i, size, ns_addr, disp_no);
+		else if (NS_SSD_TYPE(i) == SSD_TYPE_ZNS)
+			zns_init_namespace(&ns[i], i, size, ns_addr, disp_no);
+		else
+			BUG_ON(1);
+#else
 		if (NS_SSD_TYPE(i) == SSD_TYPE_NVM)
 			simple_init_namespace(&ns[i], i, size, ns_addr, disp_no);
 		else if (NS_SSD_TYPE(i) == SSD_TYPE_CONV)
@@ -541,6 +623,7 @@ static void NVMEV_NAMESPACE_INIT(struct nvmev_dev *nvmev_vdev)
 			kv_init_namespace(&ns[i], i, size, ns_addr, disp_no);
 		else
 			BUG_ON(1);
+#endif
 
 		remaining_capacity -= size;
 		ns_addr += size;
@@ -559,6 +642,14 @@ static void NVMEV_NAMESPACE_FINAL(struct nvmev_dev *nvmev_vdev)
 	int i;
 
 	for (i = 0; i < nr_ns; i++) {
+#if (BASE_SSD == LAB_MIXED)
+		if (NS_SSD_TYPE(i) == SSD_TYPE_CONV)
+			conv_remove_namespace(&ns[i]);
+		else if (NS_SSD_TYPE(i) == SSD_TYPE_ZNS)
+			zns_remove_namespace(&ns[i]);
+		else
+			BUG_ON(1);
+#else
 		if (NS_SSD_TYPE(i) == SSD_TYPE_NVM)
 			simple_remove_namespace(&ns[i]);
 		else if (NS_SSD_TYPE(i) == SSD_TYPE_CONV)
@@ -569,6 +660,7 @@ static void NVMEV_NAMESPACE_FINAL(struct nvmev_dev *nvmev_vdev)
 			kv_remove_namespace(&ns[i]);
 		else
 			BUG_ON(1);
+#endif
 	}
 
 	kfree(ns);
@@ -593,6 +685,9 @@ static void __print_base_config(void)
 		break;
 	case WD_ZN540:
 		type = "WD ZN540 ZNS SSD";
+		break;
+	case LAB_MIXED:
+		type = "Lab Mixed (Conventional FTL + ZNS)";
 		break;
 	}
 

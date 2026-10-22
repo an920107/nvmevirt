@@ -9,6 +9,7 @@
 #define ZNS_PROTOTYPE 2
 #define KV_PROTOTYPE 3
 #define WD_ZN540 4
+#define LAB_MIXED 5
 
 /* SSD Type */
 #define SSD_TYPE_NVM 0
@@ -228,6 +229,80 @@ static_assert((ONESHOT_PAGE_SIZE % FLASH_PAGE_SIZE) == 0);
 
 /* Don't modify followings. BLK_SIZE is caculated from ZONE_SIZE and DIES_PER_ZONE */
 #define BLKS_PER_PLN 0 /* BLK_SIZE should not be 0 */
+#define BLK_SIZE (ZONE_SIZE / DIES_PER_ZONE)
+static_assert((ZONE_SIZE % DIES_PER_ZONE) == 0);
+
+/* For ZRWA */
+#define MAX_ZRWA_ZONES (0)
+#define ZRWAFG_SIZE (0)
+#define ZRWA_SIZE (0)
+#define ZRWA_BUFFER_SIZE (0)
+
+#define LBA_BITS (9)
+#define LBA_SIZE (1 << LBA_BITS)
+
+#elif (BASE_SSD == LAB_MIXED)
+/*
+ * Lab 1 mixed device: one conventional-FTL namespace and one ZNS
+ * namespace behind a single virtual NVMe controller.
+ *
+ * Both namespaces share the same NAND geometry and timing so that the
+ * comparison isolates the FTL/ZNS difference instead of the difference
+ * between two unrelated SSD models.
+ */
+#define NR_NAMESPACES 2
+
+#define NS_SSD_TYPE_0 SSD_TYPE_CONV
+#define NS_CAPACITY_0 (0)
+#define NS_SSD_TYPE_1 SSD_TYPE_ZNS
+#define NS_CAPACITY_1 (0)
+
+#define MDTS (6)
+#define CELL_MODE (CELL_MODE_TLC)
+
+#define SSD_PARTITIONS (4)
+#define NAND_CHANNELS (8)
+#define LUNS_PER_NAND_CH (8)
+#define PLNS_PER_LUN (1)
+
+#define FLASH_PAGE_SIZE KB(32)
+#define ONESHOT_PAGE_SIZE (FLASH_PAGE_SIZE * 2)
+static_assert((ONESHOT_PAGE_SIZE % FLASH_PAGE_SIZE) == 0);
+
+#define MAX_CH_XFER_SIZE KB(32)
+#define WRITE_UNIT_SIZE (512)
+
+#define NAND_CHANNEL_BANDWIDTH (800ull) //MB/s
+#define PCIE_BANDWIDTH (3200ull) //MB/s
+
+#define NAND_4KB_READ_LATENCY_LSB (25485)
+#define NAND_4KB_READ_LATENCY_MSB (25485)
+#define NAND_4KB_READ_LATENCY_CSB (25485)
+#define NAND_READ_LATENCY_LSB (40950)
+#define NAND_READ_LATENCY_MSB (40950)
+#define NAND_READ_LATENCY_CSB (40950)
+#define NAND_PROG_LATENCY (1913640)
+#define NAND_ERASE_LATENCY (0)
+
+#define FW_4KB_READ_LATENCY (37540 - 7390 + 2000)
+#define FW_READ_LATENCY (37540 - 7390 + 2000)
+#define FW_WBUF_LATENCY0 (0)
+#define FW_WBUF_LATENCY1 (0)
+#define FW_CH_XFER_LATENCY (413)
+#define OP_AREA_PERCENT (0.07)
+
+#define GLOBAL_WB_SIZE (NAND_CHANNELS * LUNS_PER_NAND_CH * ONESHOT_PAGE_SIZE * 2)
+#define ZONE_WB_SIZE (0)
+#define WRITE_EARLY_COMPLETION 1
+
+/*
+ * One die per zone keeps the zone -> channel mapping simple:
+ * zone z is served by die (z mod tt_luns), i.e. channel z mod 8.
+ * A 16 MiB zone therefore gives 512 zones on an 8 GiB ZNS namespace.
+ */
+#define DIES_PER_ZONE (1)
+#define ZONE_SIZE MB(16)
+#define BLKS_PER_PLN 0
 #define BLK_SIZE (ZONE_SIZE / DIES_PER_ZONE)
 static_assert((ZONE_SIZE % DIES_PER_ZONE) == 0);
 

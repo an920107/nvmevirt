@@ -1,0 +1,33 @@
+conv_chan: part=0 ch=0 gch=0 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=0 ch=1 gch=1 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=1 ch=0 gch=2 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=1 ch=1 gch=3 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=2 ch=0 gch=4 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=2 ch=1 gch=5 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=3 ch=0 gch=6 nand_ops=0 nand_bytes=0 busy_ns=0
+conv_chan: part=3 ch=1 gch=7 nand_ops=0 nand_bytes=0 busy_ns=0
+zns: zones=512 channels=8 total_ios=1956 total_bytes=252301312 active_zones=0 max_active_zones=2 active_channels=0 max_active_channels=2
+zns_chan: ch=0 host_ios=33943552 host_bytes=33943552 nand_ops=537 nand_bytes=33943552 busy_ns=43490176 out=0
+zns_chan: ch=1 host_ios=33558528 host_bytes=33558528 nand_ops=513 nand_bytes=33558528 busy_ns=42996864 out=0
+zns_chan: ch=2 host_ios=33554432 host_bytes=33554432 nand_ops=512 nand_bytes=33554432 busy_ns=42991616 out=0
+zns_chan: ch=3 host_ios=33554432 host_bytes=33554432 nand_ops=512 nand_bytes=33554432 busy_ns=42991616 out=0
+zns_chan: ch=4 host_ios=33554432 host_bytes=33554432 nand_ops=512 nand_bytes=33554432 busy_ns=42991616 out=0
+zns_chan: ch=5 host_ios=33554432 host_bytes=33554432 nand_ops=512 nand_bytes=33554432 busy_ns=42991616 out=0
+zns_chan: ch=6 host_ios=33554432 host_bytes=33554432 nand_ops=512 nand_bytes=33554432 busy_ns=42991616 out=0
+zns_chan: ch=7 host_ios=17027072 host_bytes=17027072 nand_ops=279 nand_bytes=17027072 busy_ns=21815936 out=0
+zns_zone: zid=0 ios=146 bytes=17166336 out=0
+zns_zone: zid=1 ios=129 bytes=16781312 out=0
+zns_zone: zid=2 ios=128 bytes=16777216 out=0
+zns_zone: zid=3 ios=128 bytes=16777216 out=0
+zns_zone: zid=4 ios=128 bytes=16777216 out=0
+zns_zone: zid=5 ios=128 bytes=16777216 out=0
+zns_zone: zid=6 ios=128 bytes=16777216 out=0
+zns_zone: zid=7 ios=128 bytes=16777216 out=0
+zns_zone: zid=8 ios=128 bytes=16777216 out=0
+zns_zone: zid=9 ios=128 bytes=16777216 out=0
+zns_zone: zid=10 ios=128 bytes=16777216 out=0
+zns_zone: zid=11 ios=128 bytes=16777216 out=0
+zns_zone: zid=12 ios=128 bytes=16777216 out=0
+zns_zone: zid=13 ios=128 bytes=16777216 out=0
+zns_zone: zid=14 ios=128 bytes=16777216 out=0
+zns_zone: zid=511 ios=17 bytes=249856 out=0

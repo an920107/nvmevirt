@@ -1,0 +1,4 @@
+[  466.691514] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=2 | ac cur=0 avg=0 max=2 | ios=422 bytes=51236864
+[  467.695514] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=493 bytes=64618496
+[  468.699516] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=491 bytes=64356352
+[  469.703513] NVMeVirt: ZNS parallel: az cur=0 avg=0 max=1 | ac cur=0 avg=0 max=1 | ios=491 bytes=64356352

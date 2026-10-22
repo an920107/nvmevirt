@@ -2,6 +2,8 @@
 
 #include <linux/ktime.h>
 #include <linux/sched/clock.h>
+#include <linux/seq_file.h>
+#include <linux/vmalloc.h>
 
 #include "nvmev.h"
 #include "conv_ftl.h"
@@ -442,6 +444,50 @@ void conv_remove_namespace(struct nvmev_ns *ns)
 
 	kfree(conv_ftls);
 	ns->ftls = NULL;
+}
+
+void conv_stats_dump(struct nvmev_ns *ns, struct seq_file *m)
+{
+	struct conv_ftl *conv_ftls = (struct conv_ftl *)ns->ftls;
+	u32 part, ch;
+
+	if (!conv_ftls)
+		return;
+
+	for (part = 0; part < ns->nr_parts; part++) {
+		struct ssd *ssd = conv_ftls[part].ssd;
+		struct ssdparams *spp = &ssd->sp;
+
+		for (ch = 0; ch < spp->nchs; ch++) {
+			struct ssd_channel *sdc = &ssd->ch[ch];
+			u32 gch = part * spp->nchs + ch;
+
+			seq_printf(m,
+				   "conv_chan: part=%u ch=%u gch=%u nand_ops=%llu nand_bytes=%llu busy_ns=%llu\n",
+				   part, ch, gch, atomic64_read(&sdc->stat_ops),
+				   atomic64_read(&sdc->stat_bytes),
+				   atomic64_read(&sdc->stat_busy_ns));
+		}
+	}
+}
+
+void conv_stats_reset(struct nvmev_ns *ns)
+{
+	struct conv_ftl *conv_ftls = (struct conv_ftl *)ns->ftls;
+	u32 part, ch;
+
+	if (!conv_ftls)
+		return;
+
+	for (part = 0; part < ns->nr_parts; part++) {
+		struct ssd *ssd = conv_ftls[part].ssd;
+
+		for (ch = 0; ch < ssd->sp.nchs; ch++) {
+			atomic64_set(&ssd->ch[ch].stat_ops, 0);
+			atomic64_set(&ssd->ch[ch].stat_bytes, 0);
+			atomic64_set(&ssd->ch[ch].stat_busy_ns, 0);
+		}
+	}
 }
 
 static inline bool valid_ppa(struct conv_ftl *conv_ftl, struct ppa *ppa)
